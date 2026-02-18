@@ -1,4 +1,40 @@
 ---
+- title: RAPDASA-AMI Conference
+  year: 2026
+  id: RAPDASA2026
+  link: https://site.rapdasa.org/annual-conference/
+  deadline: "2026-03-16 23:59:59"
+  timezone: GMT+2
+  date: October 27 - October 30, 2026
+  place: Polokwane, South Africa
+  sub: CON
+- title: IEEE Conference on Information Communications Technology and Society (ICTAS)
+  year: 2026
+  id: ICTAS2026
+  link: https://www.ictas.org/ 
+  deadline: "2026-07-10 23:59:59"
+  timezone: GMT+2
+  date: October 14 - October 16, 2026
+  place: Durban, South Africa
+  sub: CON
+- title: International Conference on Artificial Intelligence, Big Data, Computing and Data Communication Systems (icABCD)
+  year: 2026
+  id: ICABCD2026
+  link: https://icabcd.org/
+  deadline: "2026-02-28 23:59:59"
+  timezone: GMT+2
+  date: August 6 - August 7, 2026
+  place: Durban, South Africa
+  sub: CON
+- title: South African Institute for Computer Scientists and Information Technologists Conference (SAICSIT)
+  year: 2026
+  id: SAICSIT2026
+  link: https://saicsit.org/2026/
+  deadline: "2026-03-02 23:59:59"
+  timezone: GMT+2
+  date: July 13 - July 15, 2026
+  place: Cape Town, South Africa
+  sub: CON
 - title: Southern African Conference for Artificial Intelligence Research
   year: 2025
   id: SACAIR2025
