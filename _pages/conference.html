@@ -14,7 +14,7 @@ permalink:  /conference/
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/bootstrap.min.css" | prepend:site.baseurl }}">
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/deadlines.css" | prepend:site.baseurl }}?t={{site.time | date: '%s'}}" media="screen,projection">
     <link rel="shortcut icon" href="{{ "/static/img/favicon.png" | prepend:site.baseurl }}">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="{{ "/static/js/jquery.countdown.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment-timezone-with-data.min.js" | prepend:site.baseurl }}"></script>
@@ -32,11 +32,15 @@ permalink:  /conference/
                     <a id="conf-title-href" nohref></a>
                     <span id="twitter-box"></span>
                   </h1>
+                  <p id="conf-full-name" class="conf-full-name" style="display:none"></p>
                 </div>
                 <div class="meta deadline col-xs-12">
-                  <span id="conf-date"></span>. <span id="conf-place"></span>.<br>
-                  Deadline: <span class="deadline-time"></span><br>
-                  Website: <a id="conf-website" target="_blank" nohref></a><br>
+                  <div class="conf-detail-meta"><strong>Conference dates:</strong> <span id="conf-date"></span>. <span id="conf-place"></span>.</div>
+                  <div id="conf-dates-range" class="conf-detail-meta" style="display:none"><strong>Dates:</strong> <span id="conf-start"></span> &ndash; <span id="conf-end"></span>.</div>
+                  <div class="conf-detail-meta"><strong>Website:</strong> <a id="conf-website" target="_blank" nohref></a></div>
+                  <div id="conf-paperslink-div" class="conf-detail-meta" style="display:none"><strong>Accepted papers:</strong> <a id="conf-paperslink" target="_blank" nohref></a></div>
+                  <div class="conf-detail-meta"><strong>Deadline (conference timezone):</strong> <span class="deadline-time"></span></div>
+                  <div class="local-timezone-hide conf-detail-meta"><strong>Deadline (<span class="local-timezone">local</span> time):</strong> <span class="deadline-local-time"></span></div>
                 </div>
             </div>
         </div>
@@ -47,10 +51,13 @@ permalink:  /conference/
                 <br>
               </div>
           </div>
+          <div class="row">
+            <div id="conference-deadline" class="calendar meta col-xs-12 col-sm-6"></div>
+          </div>
           <hr>
         </div>
         <footer>
-          <a href="/">{{ site.domain }}</a> is maintained by <a href="http://www.vima.co.za/research/research-university-of-pretoria/">Data Science for Social Impact @ UP</a>.<br>
+          <a href="/">{{ site.domain }}</a> is maintained by <a href="https://dsfsi.github.io">Data Science for Social Impact @ UP</a>.<br>
 Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/mlds-africa">Mailing List</a>.
         </footer>
     </div>
@@ -58,14 +65,9 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
     $(function() {
         var url = new URL(window.location);
         var conf = url.searchParams.get('id');
-        console.log(conf);
 
-        // Borrowed from https://github.com/moment/moment-timezone/issues/167
         // Adds support for time zones 'UTC-12'..'UTC+12'
         function addUtcTimeZones() {
-          // Moment.js uses the IANA timezone database, which supports generic time zones like 'Etc/GMT+1'.
-          // However, the signs for these time zones are inverted compared to ISO 8601.
-          // For more details, see https://github.com/moment/moment-timezone/issues/167
           for (let offset = -12; offset <= 12; offset++) {
             const posixSign = offset <= 0 ? '+' : '-';
             const isoSign = offset >= 0 ? '+' : '-';
@@ -75,6 +77,14 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
         }
         addUtcTimeZones();
 
+        try {
+          var local_timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          $('.local-timezone').text(local_timezone.toString());
+        }
+        catch(err) {
+          $('.local-timezone-hide').hide();
+        }
+
         {% for conf in site.data.conferences %}
             if (conf == "{{ conf.id }}") {
               $('#conf-title-href').text("{{conf.title}} {{conf.year}}");
@@ -83,21 +93,57 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
               $('#conf-place').text("{{conf.place}}");
               $('#conf-website').text("{{conf.link}}");
               $('#conf-website').attr('href', "{{conf.link}}");
+              {% if conf.full_name %}
+                $('#conf-full-name').text("{{conf.full_name}}").show();
+              {% endif %}
+              {% if conf.paperslink %}
+                $('#conf-paperslink').text("{{conf.paperslink}}");
+                $('#conf-paperslink').attr('href', "{{conf.paperslink}}");
+                $('#conf-paperslink-div').show();
+              {% endif %}
+              {% if conf.start %}
+                $('#conf-start').text("{{conf.start}}");
+                $('#conf-end').text("{{conf.end}}");
+                $('#conf-dates-range').show();
+              {% endif %}
               var twitter_slug = '<a href="https://twitter.com/share" class="twitter-share-button" data-text="Countdown to the #{{ conf.title }}{{ conf.year }} deadline!" data-show-count="false" style="font-size:13px;">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8">';
               $('#twitter-box').html(twitter_slug);
               {% if conf.deadline == "TBA" %}
                 $('#conf-timer').html("TBA");
                 $('.deadline-time').html("TBA");
+                $('.deadline-local-time').html("TBA");
               {% else %}
                 // adjust date according to deadline timezone
                 var timezone = {% if conf.timezone %}"{{conf.timezone}}" {% else %} "America/New_York" {% endif %};
                 var confDate = moment.tz("{{conf.deadline}}", timezone);
 
+                // show deadline in conference timezone
+                $('.deadline-time').html(confDate.toString());
+
+                // show deadline in local timezone
+                try {
+                  var localConfDate = moment.tz(confDate, local_timezone);
+                  $('.deadline-local-time').html(localConfDate.toString());
+                }
+                catch(err) {
+                  $('.local-timezone-hide').hide();
+                }
+
                 // render countdown timer
                 $('#conf-timer').countdown(confDate.toDate(), function(event) {
                   $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
                 });
-                $('.deadline-time').html(confDate.toString());
+
+                // add calendar button
+                var myCalendar = createCalendar({
+                  options: { class: 'calendar-obj', id: '{{conf.id}}' },
+                  data: {
+                    title: '{{conf.title}} {{conf.year}} deadline',
+                    start: confDate.toDate(),
+                    duration: 60,
+                  }
+                });
+                document.querySelector('#conference-deadline').appendChild(myCalendar);
               {% endif %}
             }
         {% endfor %}

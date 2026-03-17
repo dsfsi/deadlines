@@ -10,12 +10,14 @@
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/bootstrap.min.css" | prepend:site.baseurl }}">
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/deadlines.css" | prepend:site.baseurl }}?t={{site.time | date: '%s'}}" media="screen,projection">
     <link rel="shortcut icon" href="{{ "/static/img/favicon.png" | prepend:site.baseurl }}">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ "/static/js/jquery.countdown.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment-timezone-with-data.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/store.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/ouical.min.js" | prepend:site.baseurl }}"></script>
+    <script src="{{ "/static/js/bootstrap-multiselect.min.js" | prepend:site.baseurl }}"></script>
 
   </head>
   <body>
@@ -36,35 +38,39 @@
             </div>
             <br>
             <div class="row">
-              <div class="col-xs-12">
-                <!-- <div class="well"> -->
-                  <form class="form-horizontal">
-                    <div class="form-group">
+              <form class="container">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-3 filter-label">
+                    <label for="subject-select" style="margin-bottom: 0; line-height: 2;">Subject Filter:</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <select id="subject-select" name="subject-select" multiple="multiple" style="display: none">
                       {% for type in site.data.types %}
-                      <div class="col-md-4 col-xs-6">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox" id="{{ type.sub }}-checkbox" class=""> {{ type.name }}
-                          </label>
-                        </div>
-                      </div>
+                      <option value="{{type.sub}}" id="{{type.sub}}-checkbox">{{type.name}} ({{type.sub}})</option>
                       {% endfor %}
-                    </div>
-                  </form>
-                <!-- </div> -->
-              </div>
+                    </select>
+                  </div>
+                </div>
+              </form>
             </div>
             <div class="row">
+              <div class="meta col-xs-12">
+                <span class="local-timezone-hide">
+                  Deadlines are shown in <span class="local-timezone">your local</span> time.
+                </span>
+              </div>
               <div class="meta col-xs-12">
                 Export all deadlines to <a href="https://calendar.google.com/calendar/r?cid={{ site.url }}/ai-deadlines.ics">Google Calendar</a> or <a href="/ai-deadlines.ics">.ics</a>.
               </div>
             </div>
         </div>
+        <div id="coming_confs">
         {% for conf in site.data.conferences %}
-        <div id="{{conf.id}}" class="{% for sub in conf.sub %} {{sub}}-conf {% endfor %}">
+        <div id="{{conf.id}}" class="ConfItem {% for sub in conf.sub %} {{sub}}-conf {% endfor %}">
           <div class="row conf-row">
               <div class="col-xs-5 col-sm-6">
-                  <a class="conf-title" href="/conference?id={{ conf.id }}">{{conf.title}} {{conf.year}}</a>
+                  <a class="conf-title" href="/conference?id={{ conf.id }}"{% if conf.full_name %} title="{{conf.full_name}}"{% endif %}>{{conf.title}} {{conf.year}}</a>
+                  {% if conf.paperslink %}<a href="{{conf.paperslink}}" target="_blank" class="papers-link" title="Accepted Papers">papers</a>{% endif %}
               </div>
               <div class="col-xs-7 col-sm-6">
                 <span class="timer"></span>
@@ -101,25 +107,24 @@
           <hr>
         </div>
         {% endfor %}
+        </div>
+        <div id="past_confs">
+          <h1 id="past-events-title">Past Events</h1>
+          <div id="sort-order-checkbox">
+            <label for="sort-order"><input type="checkbox" id="sort-order" name="sort-order" checked>Most recent first</label>
+          </div>
+        </div>
         <footer>
           <a href="/">{{ site.domain }}</a> is maintained by <a href="https://dsfsi.github.io">Data Science for Social Impact @ UP</a>.<br>
-Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/mlds-africa">Mailing List</a>.        
+Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/mlds-africa">Mailing List</a>.
       </footer>
         <br><br>
     </div>
     <script type="text/javascript" charset="utf-8">
     $(function() {
-        // Make sure this is >= no. of subs
-        // Currently not used
-        var colors = ['#341f97', '#ee5253', '#2e86de',
-                      '#ff9f43', '#10ac84', '#222f3e']
-
         // Borrowed from https://github.com/moment/moment-timezone/issues/167
         // Adds support for time zones 'UTC-12'..'UTC+12'
         function addUtcTimeZones() {
-          // Moment.js uses the IANA timezone database, which supports generic time zones like 'Etc/GMT+1'.
-          // However, the signs for these time zones are inverted compared to ISO 8601.
-          // For more details, see https://github.com/moment/moment-timezone/issues/167
           for (let offset = -12; offset <= 12; offset++) {
             const posixSign = offset <= 0 ? '+' : '-';
             const isoSign = offset >= 0 ? '+' : '-';
@@ -129,6 +134,14 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
         }
         addUtcTimeZones();
 
+        try {
+          var local_timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          $('.local-timezone').text(local_timezone.toString());
+        }
+        catch(err) {
+          $('.local-timezone-hide').hide();
+        }
+
         // Get all subs
         var conf_type_data = {{ site.data.types | jsonify }};
         var all_subs = [];
@@ -137,6 +150,20 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
           all_subs[i] = conf_type_data[i]['sub'];
           sub2name[conf_type_data[i]['sub']] = conf_type_data[i]['name'];
           name2sub[conf_type_data[i]['name']] = conf_type_data[i]['sub'];
+        }
+
+        var subs = [];
+
+        function update_filtering() {
+          for (var i = 0; i < all_subs.length; i++) {
+            if (subs.indexOf(all_subs[i]) < 0) {
+              $('.' + all_subs[i] + '-conf').hide();
+            } else {
+              $('.' + all_subs[i] + '-conf').show();
+            }
+          }
+          store.set('{{ site.domain }}', subs);
+          window.history.pushState('', '', '/?sub=' + subs.join());
         }
 
         {% for conf in site.data.conferences %}
@@ -152,103 +179,120 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
           $('#{{conf.id}} .timer').countdown(confDate.toDate(), function(event) {
             $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
           });
-          $('#{{conf.id}} .deadline-time').html(confDate.toString());
+
+          // show deadline in user's local timezone
+          try {
+            var localConfDate = moment.tz(confDate, local_timezone);
+            $('#{{conf.id}} .deadline-time').html(localConfDate.toString());
+          }
+          catch(err) {
+            $('#{{conf.id}} .deadline-time').html(confDate.toString());
+          }
 
           // add calendar button
           var myCalendar = createCalendar({
             options: {
               class: 'calendar-obj',
-
-              // You can pass an ID. If you don't, one will be generated for you
               id: '{{conf.id}}'
             },
             data: {
-              // Event title
               title: '{{conf.title}} {{conf.year}} deadline',
-
-              // Event start date
-              start: confDate.toDate(), // new Date('June 15, 2013 19:00'),
-
-              // Event duration
+              start: confDate.toDate(),
               duration: 60,
             }
           });
           document.querySelector('#{{conf.id}} .calendar').appendChild(myCalendar);
           $('#{{conf.id}} .conf-sub').html(sub2name["{{conf.sub}}"].toLocaleLowerCase());
 
-          // check if date has passed, add 'past' class to it
+          // check if date has passed — move to past section
           var today = moment();
-          if (today.diff(confDate) > 0)
+          var diff = today.diff(confDate);
+          $('#{{conf.id}}').attr('diff', diff);
+          if (diff > 0) {
             $('#{{conf.id}}').addClass('past');
+            $('#{{conf.id}}').appendTo($('#past_confs'));
+            $('#{{conf.id}} .timer').replaceWith($('#{{conf.id}} .deadline'));
+            $('#{{conf.id}} .calendar').remove();
+          }
         {% endif %}
         {% endfor %}
 
-        // Get subjects from URL
-        var url = new URL(window.location);
-        var subs = url.searchParams.get('sub');
-        if (subs == undefined) {
-           subs = store.get('{{ site.domain }}');
-        } else {
-           subs = subs.toUpperCase().split(',');
-        }
-        // Get subjects from browser cache
-        if (subs === undefined) {
-          subs = all_subs;
-          for (var i = 0; i < subs.length; i++) {
-            $('#' + subs[i] + '-checkbox').prop('checked', true);
-          }
-        } else {
-          for (var i = 0; i < subs.length; i++) {
-            $('#' + subs[i] + '-checkbox').prop('checked', true);
-          }
-        }
-        // Hide unchecked subs
-        for (var i = 0; i < all_subs.length; i++) {
-          if (subs.indexOf(all_subs[i]) < 0) {
-            $('.' + all_subs[i] + '-conf').hide();
-          }
-        }
-        store.set('{{ site.domain }}', subs);
-        window.history.pushState('', '', '/?sub=' + subs.join());
+        // Sort upcoming conferences by time remaining (soonest first)
+        $('#coming_confs .ConfItem').sort(function(a, b) {
+          return $(b).attr('diff') - $(a).attr('diff');
+        }).appendTo($('#coming_confs'));
 
-        // Event handler on checkbox change
-        $('form :checkbox').change(function(e) {
-          var checked = $(this).is(':checked');
-          var cid = $(this).prop('id');
-          var csub = cid.substring(0, cid.length - 9);
-          if (checked == true) {
-            $('.' + csub + '-conf').show();
-            if (subs.indexOf(csub) < 0)
-              subs.push(csub);
+        // Sort past conferences (most recent first by default)
+        $('#past_confs .ConfItem').sort(function(a, b) {
+          return $(a).attr('diff') - $(b).attr('diff');
+        }).appendTo($('#past_confs'));
+
+        // Toggle sort order for past events
+        $('#sort-order').on('change', function() {
+          if ($(this).is(':checked')) {
+            $('#past_confs .ConfItem').sort(function(a, b) {
+              return $(a).attr('diff') - $(b).attr('diff');
+            }).appendTo($('#past_confs'));
+          } else {
+            $('#past_confs .ConfItem').sort(function(a, b) {
+              return $(b).attr('diff') - $(a).attr('diff');
+            }).appendTo($('#past_confs'));
           }
-          else {
-            $('.' + csub + '-conf').hide();
-            var idx = subs.indexOf(csub);
-            if (idx >= 0)
-              subs.splice(idx, 1);
-          }
-          console.log(subs);
-          store.set('{{ site.domain }}', subs);
-          window.history.pushState('', '', '/?sub=' + subs.join());
         });
 
-        // Event handler on sub click
+        // Initialize multiselect dropdown
+        $('#subject-select').multiselect({
+          includeSelectAllOption: true,
+          numberDisplayed: 5,
+          onChange: function(option, checked) {
+            var csub = $(option).val();
+            if (checked) {
+              if (subs.indexOf(csub) < 0) subs.push(csub);
+            } else {
+              var idx = subs.indexOf(csub);
+              if (idx >= 0) subs.splice(idx, 1);
+            }
+            update_filtering();
+          },
+          onSelectAll: function() {
+            subs = all_subs.slice();
+            update_filtering();
+          },
+          onDeselectAll: function() {
+            subs = [];
+            update_filtering();
+          },
+          buttonText: function(options) {
+            if (options.length === 0) return 'None selected';
+            var labels = [];
+            options.each(function() {
+              labels.push($(this).attr('value') || $(this).text());
+            });
+            return labels.join(', ');
+          }
+        });
+
+        // Restore state from URL or cache
+        var url = new URL(window.location);
+        var savedSubs = url.searchParams.get('sub');
+        if (savedSubs == null) {
+          savedSubs = store.get('{{ site.domain }}');
+        } else {
+          savedSubs = savedSubs.toUpperCase().split(',');
+        }
+        if (!savedSubs || savedSubs.length === 0) savedSubs = all_subs.slice();
+        subs = savedSubs;
+
+        $('#subject-select').multiselect('select', subs);
+        update_filtering();
+
+        // Event handler on sub badge click — filter to just that type
         $('.conf-sub').click(function(e) {
           var csub = $(this).data('sub');
-          for (var i = 0; i < subs.length; i++) {
-            if (subs[i] != csub) {
-              $('#' + subs[i] + '-checkbox').prop('checked', false);
-              $('.' + subs[i] + '-conf').hide();
-            }
-            else {
-              $('#' + subs[i] + '-checkbox').prop('checked', true);
-              $('.' + subs[i] + '-conf').show();
-            }
-          }
           subs = [csub];
-          console.log(subs);
-          store.set('{{ site.domain }}', subs);
-          window.history.pushState('', '', '/?sub=' + subs.join());
+          $('#subject-select').multiselect('deselect', all_subs);
+          $('#subject-select').multiselect('select', [csub]);
+          update_filtering();
         });
     });
     <!-- Google analytics -->
