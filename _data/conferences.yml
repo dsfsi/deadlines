@@ -1,13 +1,4 @@
 ---
-- title: RAPDASA-AMI Conference
-  year: 2026
-  id: RAPDASA2026
-  link: https://site.rapdasa.org/annual-conference/
-  deadline: "2026-03-16 23:59:59"
-  timezone: GMT+2
-  date: October 27 - October 30, 2026
-  place: Polokwane, South Africa
-  sub: CON
 - title: IEEE Conference on Information Communications Technology and Society (ICTAS)
   year: 2026
   id: ICTAS2026
@@ -16,6 +7,24 @@
   timezone: GMT+2
   date: October 14 - October 16, 2026
   place: Durban, South Africa
+  sub: CON
+- title: Deep Learning Indaba
+  year: 2026
+  id: DLI2026
+  link: https://deeplearningindaba.com/2026/research-papers/
+  deadline: "2025-04-15 23:59:59"
+  timezone: UTC-12
+  date: Aug 2 - Aug 7, 2026
+  place: Lagos, Nigeria
+  sub: CON
+- title: RAPDASA-AMI Conference
+  year: 2026
+  id: RAPDASA2026
+  link: https://site.rapdasa.org/annual-conference/
+  deadline: "2026-03-16 23:59:59"
+  timezone: GMT+2
+  date: October 27 - October 30, 2026
+  place: Polokwane, South Africa
   sub: CON
 - title: International Conference on Artificial Intelligence, Big Data, Computing and Data Communication Systems (icABCD)
   year: 2026
