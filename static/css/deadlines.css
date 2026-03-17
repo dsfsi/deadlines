@@ -155,15 +155,6 @@ footer {
   background: #0097e6;
 }
 
-.checkbox input[type="checkbox"]:checked:after {
-  background-color: #0097e6;
-  border-color: #0097e6;
-}
-
-.checkbox input[type="checkbox"]:after, .checkbox input[type="checkbox"]:focus:after {
-  border-color: #0097e6;
-}
-
 @media only screen and (max-width: 780px) {
   #conf-timer {
     font-size: 64px;
@@ -197,10 +188,6 @@ footer {
   }
 }
 
-.checkbox {
-  font-size: 12px;
-}
-
 .calendar {
   font-size: 12px;
   margin-top: 3px;
@@ -230,62 +217,17 @@ footer {
   }
 }
 
-/* Bootstrap Multiselect with Bootstrap 3 CSS */
+/* Bootstrap Multiselect */
 .multiselect-container.dropdown-menu {
-  padding: 4px 0;
-  min-width: 220px;
   max-height: 300px;
   overflow-y: auto;
-}
-
-.multiselect-option.dropdown-item,
-.multiselect-all.dropdown-item {
-  display: block;
-  padding: 4px 16px;
-  width: 100%;
-  background: none;
-  border: none;
-  text-align: left;
-  cursor: pointer;
+  min-width: 220px;
   font-size: 13px;
-  white-space: nowrap;
-  color: #333;
 }
 
-.multiselect-option.dropdown-item:hover,
-.multiselect-all.dropdown-item:hover {
-  background-color: #f5f5f5;
-}
-
-.multiselect-option.dropdown-item.active,
-.multiselect-all.dropdown-item.active {
+.multiselect-option.dropdown-item.active {
   background-color: #e8f0fe;
   color: #333;
-}
-
-.dropdown-divider {
-  height: 1px;
-  margin: 4px 0;
-  overflow: hidden;
-  background-color: #e5e5e5;
-}
-
-.form-check {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  pointer-events: none;
-}
-
-.form-check-input {
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.form-check-label {
-  margin-bottom: 0;
-  font-weight: normal;
-  cursor: pointer;
 }
 
 button.multiselect {

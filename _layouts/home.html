@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/bootstrap.min.css" | prepend:site.baseurl }}">
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/deadlines.css" | prepend:site.baseurl }}?t={{site.time | date: '%s'}}" media="screen,projection">
     <link rel="shortcut icon" href="{{ "/static/img/favicon.png" | prepend:site.baseurl }}">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="{{ "/static/js/jquery.countdown.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment-timezone-with-data.min.js" | prepend:site.baseurl }}"></script>
@@ -25,13 +25,13 @@
     <div class="container">
         <div class="page-header">
             <div class="row">
-                <div class="col-xs-12 col-sm-12">
+                <div class="col-12">
                   <h1>
                     {{ site.title }} <a href="https://twitter.com/share" class="twitter-share-button" data-text="{{ site.description }}{% if site.twitter_hashtag %} #{{ site.twitter_hashtag }}{% endif %}" data-show-count="false" style="font-size:13px;">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                     <iframe src="https://ghbtns.com/github-btn.html?user={{ site.github_username }}&repo={{ site.github_repo }}&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
                   </h1>
                 </div>
-                <div class="meta col-xs-12">
+                <div class="meta col-12">
                   {{ site.description }}.
                   To add/update a conference, <a target="_blank" href="//github.com/{{ site.github_username }}/{{ site.github_repo }}">send in a pull request</a>.
                 </div>
@@ -40,10 +40,10 @@
             <div class="row">
               <form class="container">
                 <div class="row">
-                  <div class="col-xs-12 col-sm-3 filter-label">
+                  <div class="col-12 col-sm-3 filter-label">
                     <label for="subject-select" style="margin-bottom: 0; line-height: 2;">Subject Filter:</label>
                   </div>
-                  <div class="col-xs-12 col-sm-6">
+                  <div class="col-12 col-sm-6">
                     <select id="subject-select" name="subject-select" multiple="multiple" style="display: none">
                       {% for type in site.data.types %}
                       <option value="{{type.sub}}" id="{{type.sub}}-checkbox">{{type.name}} ({{type.sub}})</option>
@@ -54,12 +54,12 @@
               </form>
             </div>
             <div class="row">
-              <div class="meta col-xs-12">
+              <div class="meta col-12">
                 <span class="local-timezone-hide">
                   Deadlines are shown in <span class="local-timezone">your local</span> time.
                 </span>
               </div>
-              <div class="meta col-xs-12">
+              <div class="meta col-12">
                 Export all deadlines to <a href="https://calendar.google.com/calendar/r?cid={{ site.url }}/ai-deadlines.ics">Google Calendar</a> or <a href="/ai-deadlines.ics">.ics</a>.
               </div>
             </div>
@@ -68,16 +68,16 @@
         {% for conf in site.data.conferences %}
         <div id="{{conf.id}}" class="ConfItem {% for sub in conf.sub %} {{sub}}-conf {% endfor %}">
           <div class="row conf-row">
-              <div class="col-xs-5 col-sm-6">
+              <div class="col-5 col-sm-6">
                   <a class="conf-title" href="/conference?id={{ conf.id }}"{% if conf.full_name %} title="{{conf.full_name}}"{% endif %}>{{conf.title}} {{conf.year}}</a>
                   {% if conf.paperslink %}<a href="{{conf.paperslink}}" target="_blank" class="papers-link" title="Accepted Papers">papers</a>{% endif %}
               </div>
-              <div class="col-xs-7 col-sm-6">
+              <div class="col-7 col-sm-6">
                 <span class="timer"></span>
               </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-12 col-sm-6">
               <div class="meta">
                 <span class="conf-date">{{conf.date}}.</span>
                 <span class="conf-place">
@@ -90,7 +90,7 @@
               </div>
               {% endif %}
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-12 col-sm-6">
               <div class="deadline">
                 <div>Deadline:
                   <span class="deadline-time"></span>
@@ -242,6 +242,10 @@ Join the MLDS Africa <a target="_blank" href="https://groups.google.com/d/forum/
 
         // Initialize multiselect dropdown
         $('#subject-select').multiselect({
+          templates: {
+            button: '<button type="button" class="multiselect dropdown-toggle btn btn-outline-secondary" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+            popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
+          },
           includeSelectAllOption: true,
           numberDisplayed: 5,
           onChange: function(option, checked) {

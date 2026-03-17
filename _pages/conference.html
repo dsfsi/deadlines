@@ -14,7 +14,8 @@ permalink:  /conference/
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/bootstrap.min.css" | prepend:site.baseurl }}">
     <link rel="stylesheet" type="text/css" href="{{ "/static/css/deadlines.css" | prepend:site.baseurl }}?t={{site.time | date: '%s'}}" media="screen,projection">
     <link rel="shortcut icon" href="{{ "/static/img/favicon.png" | prepend:site.baseurl }}">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="{{ "/static/js/jquery.countdown.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment.min.js" | prepend:site.baseurl }}"></script>
     <script src="{{ "/static/js/moment-timezone-with-data.min.js" | prepend:site.baseurl }}"></script>
@@ -27,14 +28,14 @@ permalink:  /conference/
     <div class="container">
         <div class="page-header" id="conf-title">
             <div class="row">
-                <div class="col-xs-12 col-sm-12">
+                <div class="col-12">
                   <h1>
                     <a id="conf-title-href" nohref></a>
                     <span id="twitter-box"></span>
                   </h1>
                   <p id="conf-full-name" class="conf-full-name" style="display:none"></p>
                 </div>
-                <div class="meta deadline col-xs-12">
+                <div class="meta deadline col-12">
                   <div class="conf-detail-meta"><strong>Conference dates:</strong> <span id="conf-date"></span>. <span id="conf-place"></span>.</div>
                   <div id="conf-dates-range" class="conf-detail-meta" style="display:none"><strong>Dates:</strong> <span id="conf-start"></span> &ndash; <span id="conf-end"></span>.</div>
                   <div class="conf-detail-meta"><strong>Website:</strong> <a id="conf-website" target="_blank" nohref></a></div>
@@ -52,7 +53,7 @@ permalink:  /conference/
               </div>
           </div>
           <div class="row">
-            <div id="conference-deadline" class="calendar meta col-xs-12 col-sm-6"></div>
+            <div id="conference-deadline" class="calendar meta col-12 col-sm-6"></div>
           </div>
           <hr>
         </div>
