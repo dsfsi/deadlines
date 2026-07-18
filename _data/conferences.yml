@@ -132,7 +132,7 @@
   deadline: "2025-07-14 23:59:59"
   timezone: GMT+2
   date: 10 November 2025 - 14 November 2025
-  place: CSIR ICC, Pretoria , South Africa
+  place: CSIR ICC, Pretoria, South Africa
   sub: WP
 - title: 6th Workshop on Resources for African Indigenous Languages
   year: 2025
@@ -141,7 +141,7 @@
   deadline: "2025-07-14 23:59:59"
   timezone: GMT+2
   date: 10 November 2025
-  place: CSIR ICC, Pretoria , South Africa
+  place: CSIR ICC, Pretoria, South Africa
   sub: WP
 - title: Pan-African Artificial Intelligence and Smart Systems Conference
   year: 2025
@@ -232,7 +232,7 @@
   timezone: GMT+2
   date: Sep 1 - 7 Sep, 2024
   place: Dakar, Senegal
-  sub: WP
+  sub: CON
 - title: African Computer Vision Summer School
   year: 2024
   id: ACVSS2024
@@ -276,7 +276,7 @@
   deadline: "2023-06-19 23:59:59"
   timezone: GMT+2
   date: Nov 27 - Dec 1, 2023
-  place: East London , South Africa
+  place: East London, South Africa
   sub: CON
 - title: The Summer Institutes in Computational Social Science
   year: 2023
@@ -284,7 +284,7 @@
   link: https://sicss.io/2023/johannesburg/
   deadline: "2023-03-31 23:59:59"
   timezone: GMT+2
-  date: 26 June 2023 – 7 July 2022
+  date: 26 June 2023 – 7 July 2023
   place: Johannesburg, South Africa
   sub: WP
 - title: Deep Learning Indaba 2023
@@ -295,7 +295,7 @@
   timezone: GMT+2
   date: Sep 3 - 9 Sep, 2023
   place: Accra, Ghana
-  sub: WP
+  sub: CON
 - title: Conference on the State of Artificial Intelligence in Africa (COSAA) 2023
   year: 2023
   id: COSAA2023
@@ -320,7 +320,7 @@
   link: https://iclr.cc/
   deadline: "2022-09-21 23:59:59"
   timezone: GMT+2
-  date: May 1 - May 5 2023
+  date: May 1 - May 5, 2023
   place: Kigali, Rwanda
   sub: CON
 - title: Ethics and Explainability for Responsible Data Science (EE-RDS)
@@ -340,7 +340,7 @@
   timezone: GMT+2
   date: 1 December 2022 – 3 December 2022
   place: Potchefstroom, South Africa
-  sub: CON
+  sub: WP
 - title: Southern African Conference for Artificial Intelligence Research
   year: 2022
   id: SACAIR2022
@@ -385,7 +385,7 @@
   timezone: GMT+2
   date: 21 August 2022 – 26 August 2022
   place: Tunis, Tunisia
-  sub: WP
+  sub: CON
 - title: The Summer Institutes in Computational Social Science
   year: 2022
   id: SICSS-JIAS-IPATC2022
@@ -401,7 +401,7 @@
   link: https://africanlp.masakhane.io/
   deadline: "2022-03-07 23:59:59"
   timezone: GMT+2
-  date: April 29,2022
+  date: April 29, 2022
   place: Virtual
   sub: WP
 - title: Ethics and Explainability for Responsible Data Science (EE-RDS)
@@ -421,7 +421,7 @@
   timezone: GMT+2
   date: 29 November 2021 – 3 December 2021
   place: South Africa
-  sub: CON
+  sub: WP
 - title: Southern African Conference for Artificial Intelligence Research
   year: 2021
   id: SACAIR2021
@@ -455,7 +455,7 @@
   link: https://africon2021.org/
   deadline: "2021-04-30 23:59:59"
   timezone: GMT+2
-  date: September 13-Septeber 15, 2021
+  date: September 13-September 15, 2021
   place: Tanzania
   sub: CON
 - title: SAUTI YETU Unconference
@@ -656,7 +656,7 @@
   date: September 25-27, 2019
   place: Accra, Ghana
   sub: CON
-- title: South African Institute of Computer Scients and Information Technologs (SAICSIT) Conference 2019
+- title: South African Institute of Computer Scientists and Information Technologists (SAICSIT) Conference 2019
   year: 2019
   id: saicsit2019
   link: https://saicsit2019.org.za
@@ -673,7 +673,7 @@
   timezone: GMT+2
   date: August 25-31, 2019
   place: Nairobi, Kenya
-  sub: WP
+  sub: CON
 - title: North African Machine Learning Summer School (NASSMA)
   year: 2019
   id: NASSMA19
@@ -691,4 +691,106 @@
   timezone: GMT+2
   date: August 5-6, 2019
   place: Drakensberg, South Africa
+  sub: CON
+- title: 2nd African Human Computer Interaction Conference
+  year: 2018
+  id: AfriCHI2018
+  link: https://dblp.org/rec/conf/africhi/2018.html
+  deadline: "2018-07-02 23:59:59"
+  timezone: GMT+2
+  date: December 3-7, 2018
+  place: Windhoek, Namibia
+  sub: CON
+- title: Deep Learning Indaba
+  year: 2018
+  id: DLI2018
+  link: https://www.su.ac.za/en/node/2879
+  deadline: "2018-04-30 23:59:59"
+  timezone: GMT+2
+  date: Sep 9 - Sep 14, 2018
+  place: Stellenbosch, South Africa
+  sub: CON
+  note: End date has conflicting sources (9-14 or 9-15 Sep)
+- title: 2018 International Conference on Advances in Big Data, Computing and Data Communication Systems (icABCD)
+  year: 2018
+  id: icabcd2018
+  link: http://www.ieee.org.za/international-conference-advances-big-data-computing-data-communication-systems-icabcd-2018
+  deadline: "TBA"
+  timezone: GMT+2
+  date: August 6-7, 2018
+  place: Durban, South Africa
+  sub: CON
+- title: 5th International Conference on Soft Computing & Machine learning
+  year: 2018
+  id: iscmi2018
+  link: https://www.iscmi.us/ISCMI2018.html
+  deadline: "TBA"
+  timezone: GMT+3
+  date: November 21-22, 2018
+  place: Nairobi, Kenya
+  sub: CON
+- title: International Conference on Digital Health Technologies (ICDHT 2018)
+  year: 2018
+  id: ICDHT2018
+  link: https://icdht.org/edition-2018/
+  deadline: "TBA"
+  timezone: GMT+1
+  date: October 15-16, 2018
+  place: Sfax, Tunisia
+  sub: CON
+- title: AFRICON
+  year: 2017
+  id: AFRICON2017
+  link: https://r8.ieee.org/nigeria/2017/04/10/ieee-africon-2017-cape-town-18-20-september-2017/
+  deadline: "TBA"
+  timezone: GMT+2
+  date: September 18-20, 2017
+  place: Cape Town, South Africa
+  sub: CON
+- title: Digital Humanities Association of Southern Africa
+  year: 2017
+  id: DHASA2017
+  link: http://dh2017.digitalhumanities.org.za/cfp-and-guidelines/
+  deadline: "2016-10-22 23:59:59"
+  timezone: GMT+2
+  date: January 17-20, 2017
+  place: Stellenbosch, South Africa
+  sub: CON
+- title: Deep Learning Indaba
+  year: 2017
+  id: DLI2017
+  link: https://www.wits.ac.za/news/latest-news/research-news/2017/2017-08/wits-to-host-first-deep-learning-indaba-in-africa.html
+  deadline: "TBA"
+  timezone: GMT+2
+  date: September 10-15, 2017
+  place: Johannesburg, South Africa
+  sub: CON
+  note: Inaugural Deep Learning Indaba
+- title: 4th International Conference on Soft Computing & Machine learning
+  year: 2017
+  id: iscmi2017
+  link: https://www.iscmi.us/ISCMI2017.html
+  deadline: "TBA"
+  timezone: GMT+4
+  date: November 23-24, 2017
+  place: Mauritius
+  sub: CON
+- title: 1st African Human Computer Interaction Conference
+  year: 2016
+  id: AfriCHI2016
+  link: https://dblp.org/db/conf/africhi/index.html
+  deadline: "2016-04-27 23:59:59"
+  timezone: GMT+3
+  date: November 21-25, 2016
+  place: Nairobi, Kenya
+  sub: CON
+  note: Inaugural AfriCHI conference
+- title: AFRICON
+  year: 2015
+  id: AFRICON2015
+  link: https://dblp.org/db/conf/africon/index.html
+  deadline: "TBA"
+  timezone: GMT+3
+  date: September 14-17, 2015
+  place: Addis Ababa, Ethiopia
   sub: CON
