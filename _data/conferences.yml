@@ -45,6 +45,69 @@
   place: Cape Town, South Africa
   sub: CON
 - title: Southern African Conference for Artificial Intelligence Research
+  year: 2026
+  id: SACAIR2026
+  link: https://2026.sacair.org.za/
+  deadline: "2026-08-17 23:59:59"
+  timezone: GMT+2
+  date: November 30 - December 4, 2026
+  place: KwaZulu-Natal, South Africa
+  sub: CON
+- title: 6th International Conference on Artificial Intelligence and Robotics (ICAIR)
+  year: 2026
+  id: MIRG-ICAIR2026
+  link: https://easychair.org/cfp/MIRG-ICAIR2026
+  deadline: "2026-08-07 23:59:59"
+  timezone: GMT+1
+  date: November 3 - November 5, 2026
+  place: Lagos, Nigeria
+  sub: CON
+- title: Data Science Africa
+  year: 2026
+  id: DSA2026
+  link: https://www.datascienceafrica.org/dsa-2026
+  deadline: "2026-03-31 23:59:59"
+  timezone: GMT+3
+  date: July 23 - July 24, 2026
+  place: Kampala, Uganda
+  sub: WP
+- title: African Computer Vision Summer School (ACVSS)
+  year: 2026
+  id: ACVSS2026
+  link: https://www.acvss.ai/Attend
+  deadline: "2026-03-08 23:59:59"
+  timezone: UTC-12
+  date: Jul 19 - Jul 29, 2026
+  place: Accra, Ghana
+  sub: WP
+- title: 7th Workshop on Resources for African Indigenous Languages
+  year: 2026
+  id: RAIL2026
+  link: https://sadilar.org/en/seventh-workshop-on-resources-for-african-indigenous-languages-rail-2026/
+  deadline: "2026-03-01 23:59:59"
+  timezone: UTC-12
+  date: May 12, 2026
+  place: Palma de Mallorca, Spain
+  sub: WP
+- title: AfricaNLP Workshop
+  year: 2026
+  id: AfricaNLP2026
+  link: https://sites.google.com/view/africanlp2026/home
+  deadline: "2025-12-22 23:59:59"
+  timezone: UTC-12
+  date: March 28, 2026
+  place: Rabat, Morocco
+  sub: WP
+- title: IST-Africa
+  year: 2026
+  id: IST-Africa2026
+  link: http://www.ist-africa.org/Conference2026/default.asp
+  deadline: "2025-11-30 23:59:59"
+  timezone: GMT+2
+  date: May 25 - May 29, 2026
+  place: Virtual
+  sub: CON
+- title: Southern African Conference for Artificial Intelligence Research
   year: 2025
   id: SACAIR2025
   link: https://2025.sacair.org.za
